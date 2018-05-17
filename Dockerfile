@@ -9,7 +9,7 @@ ENV DEPS  /usr/bin/applydeltarpm  wget gcc gcc-c++ ncurses ncurses-devel bison l
 #设置环境变量
 
 ENV PATH $PATH:/usr/local/bin
- 
+RUN echo 'export LC_ALL=C' >> ~/.bashrc && source ~/.bashrc 
 RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 RUN yum -y install epel-release
 RUN yum -y update
@@ -28,6 +28,8 @@ ADD php-5.6.36.tar.gz /usr/local/src/php-files
 ADD libmemcached-1.0.18.tar.gz /usr/local/src/php-files
 ADD memcached-2.2.0.tgz /usr/local/src/php-files
 ADD redis-4.0.2.tgz /usr/local/src/php-files
+ADD memcache-2.2.7.tgz /usr/local/src/php-files
+ADD apcu-4.0.10.tgz /usr/local/src/php-files
 
 #安装nginx
 RUN groupadd www && useradd -r -g www www && cd /usr/local/src/nginx-files/nginx-1.10.3 && ./configure --prefix=/usr/local/nginx --user=www --group=www --with-http_ssl_module --with-http_v2_module --with-http_gzip_static_module --with-ipv6 --with-poll_module --with-select_module --with-pcre=/usr/local/src/nginx-files/pcre-8.40 --with-zlib=/usr/local/src/nginx-files/zlib-1.2.11 --with-openssl=/usr/local/src/nginx-files/openssl-1.1.0e && make && make install
@@ -42,8 +44,9 @@ COPY phpunit-5.7.27.phar /usr/local/bin/phpunit
 #建立软链接
 RUN ln -s /usr/local/php56/bin/php /usr/local/bin/php  && ln -s /usr/local/nginx/sbin/nginx /usr/local/bin/nginx  && ln -s /usr/local/php56/sbin/php-fpm /usr/local/bin/php-fpm  && ln -s /usr/local/php56/bin/php-config /usr/bin/php-config && chmod +x /usr/local/bin/phpunit
 
-#安装redis和memcached扩展
-RUN cd /usr/local/src/php-files/redis-4.0.2 && /usr/local/php56/bin/phpize && ./configure --with-php-config=/usr/bin/php-config && make && make install  && cd /usr/local/src/php-files/libmemcached-1.0.18 && ./configure && make && make install && cd /usr/local/src/php-files/memcached-2.2.0  && /usr/local/php56/bin/phpize && ./configure --with-php-config=/usr/bin/php-config --disable-memcached-sasl && make && make install
+#安装redis、memcached、memcache、apcu扩展
+
+RUN cd /usr/local/src/php-files/redis-4.0.2 && /usr/local/php56/bin/phpize && ./configure --with-php-config=/usr/bin/php-config && make && make install  && cd /usr/local/src/php-files/libmemcached-1.0.18 && ./configure && make && make install && cd /usr/local/src/php-files/memcached-2.2.0  && /usr/local/php56/bin/phpize && ./configure --with-php-config=/usr/bin/php-config --disable-memcached-sasl && make && make install && cd memcache-2.2.7 && /usr/local/php56/bin/phpize && ./configure --with-php-config=/usr/bin/php-config && make && make install && cd /usr/local/src/php-files/apcu-4.0.10 && /usr/local/php56/bin/phpize && && ./configure --with-php-config=/usr/bin/php-config && make && make install
 
 
 RUN rm -rf /usr/local/src/nginx-files/* && rm -rf /usr/local/src/php-files/*
