@@ -1,9 +1,9 @@
 FROM centos
 MAINTAINER leitao
 #换成阿里云的源
-RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
-COPY Centos-7.repo /etc/yum.repos.d/CentOS-Base.repo
-RUN yum makecache
+#RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+#COPY Centos-7.repo /etc/yum.repos.d/CentOS-Base.repo
+#RUN yum makecache
 
 ENV DEPS  /usr/bin/applydeltarpm  wget gcc gcc-c++ ncurses ncurses-devel bison libgcrypt perl automake autoconf libtool make  libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel zlib zlib-devel glibc glibc-devel glib2 glib2-devel curl curl-devel php-mcrypt libmcrypt libmcrypt-devel openssl-devel gd mcrypt mhash libicu-devel
 #设置环境变量
