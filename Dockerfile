@@ -54,13 +54,6 @@ RUN echo "#!/bin/bash" > /usr/local/bin/lnmp &&  echo "/usr/local/bin/php-fpm" >
 
 CMD [ "/usr/local/bin/lnmp" ] 
 
-#-g 'daemon off;' 
-#sudo docker run -it --name mylnmp --rm -v ~/wiwidework/wiwidesvn:/var/www:ro -v ~/wiwidework/nginx/config:/var/nginx/config:ro  -h zzhang -p 80:80  phpserver
-#/dev/shm/php56-cgi.sock
-#/usr/local/nginx/sbin/nginx & /usr/local/php56/sbin/php-fpm & /bin/bash
-#   extension=/usr/local/php56/lib/php/extensions/no-debug-non-zts-20131226/redis.so
-  # extension=/usr/local/php56/lib/php/extensions/no-debug-non-zts-20131226/memcached.so
-
 EXPOSE 80 443
 
 
