@@ -43,7 +43,7 @@ COPY phpunit-5.7.27.phar /usr/local/bin/phpunit
 RUN ln -s /usr/local/php56/bin/php /usr/local/bin/php  && ln -s /usr/local/nginx/sbin/nginx /usr/local/bin/nginx  && ln -s /usr/local/php56/sbin/php-fpm /usr/local/bin/php-fpm  && ln -s /usr/local/php56/bin/php-config /usr/bin/php-config && chmod +x /usr/local/bin/phpunit
 
 #安装redis和memcached扩展
-RUN cd /usr/local/src/php-files/redis-4.0.2 && /usr/local/php56/bin/phpize && ./configure --with-php-config=/usr/bin/php-config && make && make install  && cd /usr/local/src/php-files/libmemcached-1.0.18 && ./configure && make && make install && cd /usr/local/src/php-files/memcached-2.2.0  && /usr/local/php56/bin/phpize && ./configure --with-php-config=/usr/bin/php-config && make && make install
+RUN cd /usr/local/src/php-files/redis-4.0.2 && /usr/local/php56/bin/phpize && ./configure --with-php-config=/usr/bin/php-config && make && make install  && cd /usr/local/src/php-files/libmemcached-1.0.18 && ./configure && make && make install && cd /usr/local/src/php-files/memcached-2.2.0  && /usr/local/php56/bin/phpize && ./configure --with-php-config=/usr/bin/php-config --disable-memcached-sasl && make && make install
 
 
 RUN rm -rf /usr/local/src/nginx-files/* && rm -rf /usr/local/src/php-files/*
