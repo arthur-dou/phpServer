@@ -46,7 +46,7 @@ RUN ln -s /usr/local/php56/bin/php /usr/local/bin/php  && ln -s /usr/local/nginx
 
 #安装redis、memcached、memcache、apcu扩展
 
-RUN cd /usr/local/src/php-files/redis-4.0.2 && /usr/local/php56/bin/phpize && ./configure --with-php-config=/usr/bin/php-config && make && make install  && cd /usr/local/src/php-files/libmemcached-1.0.18 && ./configure && make && make install && cd /usr/local/src/php-files/memcached-2.2.0  && /usr/local/php56/bin/phpize && ./configure --with-php-config=/usr/bin/php-config --disable-memcached-sasl && make && make install && cd memcache-2.2.7 && /usr/local/php56/bin/phpize && ./configure --with-php-config=/usr/bin/php-config && make && make install && cd /usr/local/src/php-files/apcu-4.0.10 && /usr/local/php56/bin/phpize && && ./configure --with-php-config=/usr/bin/php-config && make && make install
+RUN cd /usr/local/src/php-files/redis-4.0.2 && /usr/local/php56/bin/phpize && ./configure --with-php-config=/usr/bin/php-config && make && make install  && cd /usr/local/src/php-files/libmemcached-1.0.18 && ./configure && make && make install && cd /usr/local/src/php-files/memcached-2.2.0  && /usr/local/php56/bin/phpize && ./configure --with-php-config=/usr/bin/php-config --disable-memcached-sasl && make && make install && cd /usr/local/src/php-files/memcache-2.2.7 && /usr/local/php56/bin/phpize && ./configure --with-php-config=/usr/bin/php-config && make && make install && cd /usr/local/src/php-files/apcu-4.0.10 && /usr/local/php56/bin/phpize && ./configure --with-php-config=/usr/bin/php-config && make && make install
 
 
 RUN rm -rf /usr/local/src/nginx-files/* && rm -rf /usr/local/src/php-files/*
