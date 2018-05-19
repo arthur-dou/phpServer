@@ -1,8 +1,8 @@
 # phpserver
 docker php nginx server
-# daemon use 
-docker run -it --name mylnmp -d -v ~/projectName/www:/var/www:ro -v ~/projectName/nginx/config:/var/nginx/config:ro  -h hostname -p 80:80  leitaozhang/phpserver
-### 2
-docker run -it --name mylnmp --rm -v ~/projectName/www:/var/www:ro -v ~/projectName/nginx/config:/var/nginx/config:ro  -h hostname -p 80:80  leitaozhang/phpserver /bin/bash
-### 3
-php-fpm && nginx
+# one step
+docker run --name mymemcache -p 11211:11211 -d memcached memcached -m 64
+# two step
+docker run --name mysql -p 3306:3306 -v ~/docker/mysql/datadir:/var/lib/mysql -v ~/docker/mysql/config:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7.22
+# three step
+docker run --name mylnmp -d -p 80:80 --link mymemcache --link mysql -v ~/PhpstormProjects:/var/www:ro  -v ~/docker/nginx/config:/var/nginx/config:ro  leitaozhang/phpserver
