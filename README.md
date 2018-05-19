@@ -26,6 +26,6 @@ server {
 		include        fastcgi_params;
 	}
  }
- 
+ ```
  ---
  可以根据不同需求而定制
